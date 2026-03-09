@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baker's Dozen Solitaire — Free Online Card Game</title>
+  <meta name="description" content="Play Baker's Dozen Solitaire free online. All 52 cards are dealt face-up in 13 columns. Build foundations from Ace to King by suit. No download required.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="/">♠ Classic Solitaire</a>
+    <nav class="site-nav">
+      <a href="/">All Games</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- Leaderboard ad — AdSense placement -->
+  <div class="ad-leaderboard">Advertisement (728×90)</div>
+
+  <div class="game-layout">
+
+    <main class="game-main">
+      <div class="canvas-wrapper">
+        <canvas id="gameCanvas"></canvas>
+        <div class="win-overlay" id="winOverlay">
+          <h2>You Win! 🎉</h2>
+          <p id="winStats"></p>
+          <button class="btn btn-primary" id="winNewGame">Play Again</button>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <button class="btn btn-primary"   id="btnNew">New Game</button>
+        <button class="btn btn-secondary" id="btnUndo">Undo</button>
+        <button class="btn btn-secondary" id="btnPause">Pause</button>
+        <button class="btn btn-secondary btn-toggle-on" id="btnHints">Hints: On</button>
+        <span class="stat-label">Moves:</span>
+        <span class="stat-value" id="moveCount">0</span>
+        <span class="stat-label" style="margin-left:12px">Time:</span>
+        <span class="stat-value" id="timer">0:00</span>
+      </div>
+    </main>
+
+    <aside class="game-sidebar">
+
+      <!-- Rectangle ad — Media.net placement -->
+      <div class="ad-rectangle">Advertisement (300×250)</div>
+
+      <div class="info-box">
+        <h3>Quick Rules</h3>
+        <ul>
+          <li>Get all cards to the 4 piles in the top right (Ace up to King)</li>
+          <li>You can only move the <strong>top card</strong> of a column</li>
+          <li>Place a card on any column that has a card one higher (suit doesn't matter)</li>
+          <li>Kings start at the bottom so they're out of your way</li>
+          <li>Empty columns can hold any card</li>
+        </ul>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- How to Play (content for SEO & AdSense) -->
+  <section class="content-section">
+    <h2>How to Play Baker's Dozen Solitaire</h2>
+
+    <h3>Setup</h3>
+    <p>
+      All 52 cards are dealt face-up into 13 columns of 4 cards each. Kings are
+      automatically moved to the bottom of each column at the start so they won't
+      block your other cards.
+    </p>
+
+    <h3>The Goal</h3>
+    <p>
+      Move all 52 cards to the four piles in the top area. Each pile is built by suit,
+      starting with the Ace and going up: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K.
+    </p>
+
+    <h3>Moving Cards</h3>
+    <ul>
+      <li>You can only move the <strong>top card</strong> of any column.</li>
+      <li>Place a card on a column where the top card is <strong>one number higher</strong>. Suit doesn't matter.</li>
+      <li>Example: a 7 can go on top of any 8.</li>
+      <li>Send a card to a top pile when it's the right next card for that suit.</li>
+      <li>If a column is empty, you can place any card there.</li>
+    </ul>
+
+    <h3>Winning</h3>
+    <p>
+      You win when all 52 cards are in the four top piles. This game gives you a fair
+      chance to win if you plan your moves carefully.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Tips to Win</h2>
+
+    <h3>Go for Aces and Low Cards First</h3>
+    <p>
+      Look for Aces and 2s that are buried under other cards. Getting them out early
+      opens up the top piles and gives you more room to work.
+    </p>
+
+    <h3>Be Careful With Kings</h3>
+    <p>
+      A King can only go on an empty column — nothing is higher than a King. Don't
+      fill up your empty columns with Kings unless you have a plan, or you'll run
+      out of places to move cards.
+    </p>
+
+    <h3>Keep Columns Empty When You Can</h3>
+    <p>
+      An empty column is very useful. You can use it to move a card out of the way
+      while you rearrange things. Try not to fill it back up right away.
+    </p>
+
+    <h3>Stack Cards in Order</h3>
+    <p>
+      Try to put cards in order from high to low in a column (like 9, 8, 7, 6...).
+      This makes it easy to move them one at a time in a chain when you're ready.
+    </p>
+  </section>
+
+  <footer class="site-footer">
+    <p>
+      &copy; <span id="year"></span> Classic Solitaire. Free to play.
+      <a href="../">All Games</a> ·
+      <a href="../about.html">About</a> ·
+      <a href="../privacy.html">Privacy Policy</a>
+    </p>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Shared utilities -->
+  <script src="../shared/cards.js"></script>
+  <script src="../shared/drag-drop.js"></script>
+  <!-- Game logic -->
+  <script src="game.js"></script>
+</body>
+</html>

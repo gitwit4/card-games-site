@@ -1,0 +1,90 @@
+/* style.css — Global / homepage styles */
+@import url('shared/common.css');
+
+.hero {
+  text-align: center;
+  padding: 56px 20px 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.game-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s;
+  display: block;
+}
+
+.game-card:hover {
+  border-color: var(--accent);
+}
+
+.game-card .game-icon {
+  font-size: 2.6rem;
+  margin-bottom: 12px;
+}
+
+.game-card h2 {
+  font-size: 1.25rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.game-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.game-card .badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+.ad-rectangle-centered {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 24px;
+}
+
+.coming-soon {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.coming-soon .badge {
+  background: var(--surface-2);
+  color: var(--text-muted);
+}

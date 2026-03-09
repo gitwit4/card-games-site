@@ -1,0 +1,223 @@
+/* shared/common.css — Styles shared across all games */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #f2f4f6;   /* light page background */
+  --surface:      #ffffff;   /* white panels / cards */
+  --surface-2:    #e8eaed;   /* slightly darker surface */
+  --text:         #1a1a1a;   /* near-black — high contrast */
+  --text-muted:   #555555;   /* medium gray */
+  --accent:       #4a90d9;   /* blue — matches buttons */
+  --accent-light: #5a9fe8;
+  --border:       #d0d4da;   /* light gray */
+  --felt:         #2d6e38;   /* card table green */
+  --card-w:       72px;
+  --card-h:       100px;
+  --radius:       8px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── Site header ── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 2px solid var(--accent);
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-logo {
+  font-size: 1.45rem;
+  font-weight: bold;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.site-logo:hover { color: var(--accent-light); }
+
+.site-nav {
+  margin-left: auto;
+}
+
+.site-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 24px;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.site-nav a:hover { color: var(--accent); }
+
+/* ── Ad slots ── */
+.ad-leaderboard {
+  width: 728px;
+  height: 90px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 12px auto;
+  max-width: 100%;
+}
+
+.ad-rectangle {
+  width: 300px;
+  height: 250px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ── Game canvas wrapper ── */
+.canvas-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+canvas {
+  display: block;
+  cursor: default;
+  touch-action: none;
+}
+
+/* ── Game controls bar ── */
+.game-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 11px 24px;
+  border: 1.5px solid rgba(0,0,0,0.22);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: Arial, system-ui, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  background: #4a90d9;
+  color: #ffffff;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:hover  { background: #5a9fe8; }
+.btn:active { transform: scale(0.97); }
+
+/* Keep primary/secondary as aliases — same appearance */
+.btn-primary   { background: #4a90d9; color: #ffffff; }
+.btn-secondary { background: #4a90d9; color: #ffffff; }
+
+.btn-primary:hover, .btn-secondary:hover { background: #5a9fe8; }
+
+/* ── Stats ── */
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--text);
+  margin-left: 3px;
+}
+
+/* ── Win overlay ── */
+.win-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-radius: var(--radius);
+  z-index: 10;
+}
+
+.win-overlay h2 {
+  font-size: 2.4rem;
+  color: var(--text);
+}
+
+.win-overlay p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* ── Content sections (How to Play, Tips) ── */
+.content-section {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.content-section h2 {
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.content-section h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin: 22px 0 6px;
+}
+
+.content-section p, .content-section li {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.content-section ul, .content-section ol {
+  padding-left: 24px;
+}
+
+/* ── Footer ── */
+.site-footer {
+  text-align: center;
+  padding: 28px 20px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+.site-footer a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer a:hover { color: var(--accent-light); }
+
+/* ── Responsive ── */
+@media (max-width: 780px) {
+  .ad-leaderboard { display: none; }
+  .ad-rectangle   { display: none; }
+}

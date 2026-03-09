@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classic Solitaire — Free Card Games Online</title>
+  <meta name="description" content="Play free classic solitaire card games online. No download required. Baker's Dozen, Klondike, FreeCell and more.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="/">♠ Classic Solitaire</a>
+    <nav class="site-nav">
+      <a href="/bakers-dozen/">Baker's Dozen</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- Leaderboard ad slot -->
+  <div class="ad-leaderboard">Advertisement (728×90)</div>
+
+  <main>
+    <section class="hero">
+      <h1>Free Classic Solitaire Games</h1>
+      <p>Play timeless card games in your browser — no download, no sign-up required.</p>
+    </section>
+
+    <div class="games-grid">
+
+      <a class="game-card" href="bakers-dozen/">
+        <div class="game-icon">🃏</div>
+        <h2>Baker's Dozen</h2>
+        <p>All 52 cards dealt face-up in 13 columns. Build foundations from Ace to King by suit.</p>
+        <span class="badge">Play Now</span>
+      </a>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">♠</div>
+        <h2>Klondike Solitaire</h2>
+        <p>The classic solitaire game. Draw one or three cards and build your foundations.</p>
+        <span class="badge">Coming Soon</span>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">♦</div>
+        <h2>FreeCell</h2>
+        <p>Nearly every deal is winnable. Use four free cells to move cards strategically.</p>
+        <span class="badge">Coming Soon</span>
+      </div>
+
+    </div>
+
+    <!-- Rectangle ad — centered below game grid -->
+    <div class="ad-rectangle-centered">
+      <div class="ad-rectangle">Advertisement (300×250)</div>
+    </div>
+
+  </main>
+
+  <!-- Second leaderboard ad — above footer -->
+  <div class="ad-leaderboard">Advertisement (728×90)</div>
+
+  <footer class="site-footer">
+    <p>
+      &copy; <span id="year"></span> Classic Solitaire. Free to play.
+      <a href="about.html">About</a> ·
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>

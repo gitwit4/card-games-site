@@ -1,0 +1,111 @@
+/* bakers-dozen/style.css */
+@import url('../shared/common.css');
+
+.game-layout {
+  display: flex;
+  gap: 16px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 16px;
+  align-items: flex-start;
+}
+
+.game-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.game-sidebar {
+  flex-shrink: 0;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.canvas-wrapper {
+  background: var(--felt);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.game-controls {
+  margin-top: 10px;
+}
+
+/* Win overlay */
+#winOverlay {
+  display: none;
+}
+
+#winOverlay.visible {
+  display: flex;
+}
+
+/* Sidebar info box */
+.info-box {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.info-box h3 {
+  color: var(--text);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+.info-box ul {
+  padding-left: 20px;
+}
+
+.info-box li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Individual button colors */
+#btnUndo        { background: #4aaa7c; }
+#btnUndo:hover  { background: #5aba8c; }
+
+#btnPause       { background: #d9844a; }
+#btnPause:hover { background: #e8945a; }
+
+#btnHints       { background: #8b6dd9; }
+#btnHints:hover { background: #9b7de9; }
+
+/* Toggle: Hints off = dimmed violet */
+.btn-toggle-off { background: #52407f !important; color: #b0a0d0 !important; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .game-layout {
+    flex-direction: column;
+  }
+  .game-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .info-box {
+    flex: 1;
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 520px) {
+  .game-layout { padding: 8px; gap: 10px; }
+}
