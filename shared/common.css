@@ -98,7 +98,10 @@ body {
 canvas {
   display: block;
   cursor: default;
-  /* touch-action handled in JS: only blocked once a card drag actually starts */
+  /* pan-y: lets users scroll the page vertically through the canvas.
+     Once a card drag starts and setPointerCapture fires, touch-action is
+     overridden for that gesture so vertical card drags still work fine. */
+  touch-action: pan-y;
 }
 
 /* ── Game controls bar ── */
