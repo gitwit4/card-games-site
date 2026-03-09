@@ -70,9 +70,11 @@
       COL_X[c]   = MARGIN_X + (c % COLS_PER_ROW) * colStep;
     }
 
-    // Each row gets a fixed vertical slot tall enough for 13 stacked cards (worst case)
-    const overlap      = Math.round(CH * effectiveOverlap);
-    const rowSlotH     = CH + (13 - 1) * overlap + MARGIN_Y * 2;
+    // Each row gets a fixed vertical slot; on mobile use 8-card max (columns start at 4)
+    // to avoid the large gap between row 1 and row 2. Desktop keeps 13-card worst case.
+    const overlap         = Math.round(CH * effectiveOverlap);
+    const maxStackVisible = isMobile ? 8 : 13;
+    const rowSlotH        = CH + (maxStackVisible - 1) * overlap + MARGIN_Y * 2;
     const firstRowTop  = FOUND_Y + CH + Math.round(MARGIN_Y * 1.5);
     TABLEAU_TOP        = firstRowTop;  // backwards-compat alias for row 0
     ROW_Y = Array.from({ length: NUM_ROWS }, (_, r) => firstRowTop + r * rowSlotH);
