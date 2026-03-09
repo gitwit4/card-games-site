@@ -24,10 +24,14 @@
   // ── Layout (computed on resize) ──────────────────────────────────────────────
   let CW, CH;
   let MARGIN_X, MARGIN_Y;
-  let COL_X  = [];
-  let FOUND_X = [];
+  let COL_X        = [];
+  let COL_ROW      = [];  // which display row each column belongs to
+  let FOUND_X      = [];
   let FOUND_Y;
   let TABLEAU_TOP;
+  let ROW_Y        = [];  // canvas y-offset for each display row
+  let COLS_PER_ROW = NUM_COLS;
+  let NUM_ROWS     = 1;
   let effectiveOverlap = COL_OVERLAP;
 
   // ── Canvas setup ────────────────────────────────────────────────────────────
@@ -38,32 +42,43 @@
     const wrapper = canvas.parentElement;
     const W = wrapper.clientWidth || 800;
 
-    // Use tighter margins on phones (portrait or landscape) to maximise card size
     const isMobile = W <= 680;
 
-    const COLS = NUM_COLS;
+    // On mobile: split 13 cols into 2 rows (7 + 6) so cards are roughly twice as wide
+    COLS_PER_ROW = isMobile ? 7 : NUM_COLS;
+    NUM_ROWS     = Math.ceil(NUM_COLS / COLS_PER_ROW);
+
     MARGIN_X = Math.round(W * (isMobile ? 0.006 : 0.012));
-    CW       = Math.floor((W - MARGIN_X * (COLS + 1)) / COLS);
+    CW       = Math.floor((W - MARGIN_X * (COLS_PER_ROW + 1)) / COLS_PER_ROW);
     CH       = Math.round(CW * (3.5 / 2.5));
     MARGIN_Y = Math.round(CH * 0.12);
 
-    // Slightly more overlap on mobile so the canvas stays shorter
     effectiveOverlap = isMobile ? 0.24 : COL_OVERLAP;
 
+    // Foundations
     FOUND_Y = MARGIN_Y;
     const foundTotalW = NUM_FOUND * CW + (NUM_FOUND - 1) * MARGIN_X;
     const foundStartX = W - foundTotalW - MARGIN_X;
     FOUND_X = Array.from({ length: NUM_FOUND }, (_, i) => foundStartX + i * (CW + MARGIN_X));
 
-    TABLEAU_TOP = FOUND_Y + CH + MARGIN_Y * 1.5;
+    // Column x positions and row assignments
+    const colStep = (W - MARGIN_X * 2) / COLS_PER_ROW;
+    COL_X   = [];
+    COL_ROW = [];
+    for (let c = 0; c < NUM_COLS; c++) {
+      COL_ROW[c] = Math.floor(c / COLS_PER_ROW);
+      COL_X[c]   = MARGIN_X + (c % COLS_PER_ROW) * colStep;
+    }
 
-    const colStep = (W - MARGIN_X * 2) / COLS;
-    COL_X = Array.from({ length: COLS }, (_, i) => MARGIN_X + i * colStep);
+    // Each row gets a fixed vertical slot tall enough for 13 stacked cards (worst case)
+    const overlap      = Math.round(CH * effectiveOverlap);
+    const rowSlotH     = CH + (13 - 1) * overlap + MARGIN_Y * 2;
+    const firstRowTop  = FOUND_Y + CH + Math.round(MARGIN_Y * 1.5);
+    TABLEAU_TOP        = firstRowTop;  // backwards-compat alias for row 0
+    ROW_Y = Array.from({ length: NUM_ROWS }, (_, r) => firstRowTop + r * rowSlotH);
 
-    const maxCards = 13;
-    const minH = TABLEAU_TOP + CH + (maxCards - 1) * Math.round(CH * effectiveOverlap) + MARGIN_Y * 2;
     canvas.width  = W;
-    canvas.height = Math.max(minH, CH * 7);
+    canvas.height = Math.max(ROW_Y[NUM_ROWS - 1] + rowSlotH, CH * 7);
 
     render();
   }
@@ -194,13 +209,14 @@
 
   function hitTestColumn(x, y) {
     for (let c = 0; c < NUM_COLS; c++) {
-      const col = tableau[c];
-      const cx  = COL_X[c];
+      const col    = tableau[c];
+      const cx     = COL_X[c];
+      const rowTop = ROW_Y[COL_ROW[c]] || TABLEAU_TOP;
 
       if (x < cx || x > cx + CW) continue;
 
       if (col.length === 0) {
-        if (y >= TABLEAU_TOP && y <= TABLEAU_TOP + CH) {
+        if (y >= rowTop && y <= rowTop + CH) {
           return { colIndex: c, cardIndex: -1 };
         }
         continue;
@@ -314,7 +330,7 @@
   // ── Rendering ────────────────────────────────────────────────────────────────
   function cardY(colIdx, cardIdx) {
     const overlap = Math.round(CH * effectiveOverlap);
-    return TABLEAU_TOP + cardIdx * overlap;
+    return (ROW_Y[COL_ROW[colIdx]] || TABLEAU_TOP) + cardIdx * overlap;
   }
 
   function drawDropHighlight(x, y, w, h) {
@@ -371,14 +387,16 @@
       if (showHints && validFound.has(i)) drawDropHighlight(fx, FOUND_Y, CW, CH);
     }
 
-    // Foundation label
-    ctx.save();
-    ctx.font         = `${Math.round(CW * 0.18)}px sans-serif`;
-    ctx.fillStyle    = 'rgba(255,255,255,0.35)';
-    ctx.textAlign    = 'center';
-    ctx.textBaseline = 'bottom';
-    ctx.fillText('FOUNDATIONS', FOUND_X[NUM_FOUND - 1] + CW, FOUND_Y - 4);
-    ctx.restore();
+    // Foundation label — desktop only (no room on mobile)
+    if (NUM_ROWS === 1) {
+      ctx.save();
+      ctx.font         = `${Math.round(CW * 0.18)}px sans-serif`;
+      ctx.fillStyle    = 'rgba(255,255,255,0.35)';
+      ctx.textAlign    = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('FOUNDATIONS', FOUND_X[NUM_FOUND - 1] + CW, FOUND_Y - 4);
+      ctx.restore();
+    }
 
     // Draw tableau columns
     for (let c = 0; c < NUM_COLS; c++) {
@@ -386,8 +404,9 @@
       const cx  = COL_X[c];
 
       if (col.length === 0) {
-        drawEmptySlot(ctx, cx, TABLEAU_TOP, CW, CH);
-        if (showHints && drag && validCols.has(c)) drawDropHighlight(cx, TABLEAU_TOP, CW, CH);
+        const rowTop = ROW_Y[COL_ROW[c]] || TABLEAU_TOP;
+        drawEmptySlot(ctx, cx, rowTop, CW, CH);
+        if (showHints && drag && validCols.has(c)) drawDropHighlight(cx, rowTop, CW, CH);
         continue;
       }
 
