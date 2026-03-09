@@ -106,6 +106,26 @@
   }
 }
 
-@media (max-width: 520px) {
-  .game-layout { padding: 8px; gap: 10px; }
+@media (max-width: 680px) {
+  /* Canvas fills the full screen width — zero chrome around it */
+  .game-layout {
+    padding: 0;
+    gap: 0;
+  }
+
+  /* Hide sidebar entirely on mobile — no rectangle ad, no info box */
+  .game-sidebar {
+    display: none;
+  }
+
+  /* Remove border-radius on canvas so it goes edge-to-edge */
+  .canvas-wrapper {
+    border-radius: 0;
+  }
+
+  /* Info box shown below game on mobile instead of sidebar */
+  .info-box-mobile {
+    display: block;
+    margin: 12px 8px;
+  }
 }

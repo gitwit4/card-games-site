@@ -23,6 +23,10 @@
   <div class="game-layout">
 
     <main class="game-main">
+
+      <!-- Mobile banner ad — above canvas, hidden on desktop -->
+      <div class="ad-mobile">Advertisement (320×50)</div>
+
       <div class="canvas-wrapper">
         <canvas id="gameCanvas"></canvas>
         <div class="win-overlay" id="winOverlay">
@@ -42,6 +46,22 @@
         <span class="stat-label" style="margin-left:12px">Time:</span>
         <span class="stat-value" id="timer">0:00</span>
       </div>
+
+      <!-- Mobile banner ad — below controls, hidden on desktop -->
+      <div class="ad-mobile">Advertisement (320×50)</div>
+
+      <!-- Quick rules shown below game on mobile (sidebar hidden on mobile) -->
+      <div class="info-box info-box-mobile" style="display:none">
+        <h3>Quick Rules</h3>
+        <ul>
+          <li>Get all cards to the 4 piles in the top right (Ace up to King)</li>
+          <li>You can only move the <strong>top card</strong> of a column</li>
+          <li>Place a card on any column that has a card one higher (suit doesn't matter)</li>
+          <li>Kings start at the bottom so they're out of your way</li>
+          <li>Empty columns can hold any card</li>
+        </ul>
+      </div>
+
     </main>
 
     <aside class="game-sidebar">
@@ -134,6 +154,16 @@
     </p>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
+
+  <!-- Show quick rules below game on mobile -->
+  <script>
+    (function () {
+      var box = document.querySelector('.info-box-mobile');
+      function checkMobile() { box.style.display = window.innerWidth <= 680 ? 'block' : 'none'; }
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+    }());
+  </script>
 
   <!-- GSAP for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

@@ -28,6 +28,7 @@
   let FOUND_X = [];
   let FOUND_Y;
   let TABLEAU_TOP;
+  let effectiveOverlap = COL_OVERLAP;
 
   // ── Canvas setup ────────────────────────────────────────────────────────────
   const canvas = document.getElementById('gameCanvas');
@@ -37,11 +38,17 @@
     const wrapper = canvas.parentElement;
     const W = wrapper.clientWidth || 800;
 
+    // Use tighter margins on phones (portrait or landscape) to maximise card size
+    const isMobile = W <= 680;
+
     const COLS = NUM_COLS;
-    MARGIN_X   = Math.round(W * 0.012);
-    CW         = Math.floor((W - MARGIN_X * (COLS + 1)) / COLS);
-    CH         = Math.round(CW * (3.5 / 2.5));
-    MARGIN_Y   = Math.round(CH * 0.12);
+    MARGIN_X = Math.round(W * (isMobile ? 0.006 : 0.012));
+    CW       = Math.floor((W - MARGIN_X * (COLS + 1)) / COLS);
+    CH       = Math.round(CW * (3.5 / 2.5));
+    MARGIN_Y = Math.round(CH * 0.12);
+
+    // Slightly more overlap on mobile so the canvas stays shorter
+    effectiveOverlap = isMobile ? 0.24 : COL_OVERLAP;
 
     FOUND_Y = MARGIN_Y;
     const foundTotalW = NUM_FOUND * CW + (NUM_FOUND - 1) * MARGIN_X;
@@ -54,7 +61,7 @@
     COL_X = Array.from({ length: COLS }, (_, i) => MARGIN_X + i * colStep);
 
     const maxCards = 13;
-    const minH = TABLEAU_TOP + CH + (maxCards - 1) * Math.round(CH * COL_OVERLAP) + MARGIN_Y * 2;
+    const minH = TABLEAU_TOP + CH + (maxCards - 1) * Math.round(CH * effectiveOverlap) + MARGIN_Y * 2;
     canvas.width  = W;
     canvas.height = Math.max(minH, CH * 7);
 
@@ -306,7 +313,7 @@
 
   // ── Rendering ────────────────────────────────────────────────────────────────
   function cardY(colIdx, cardIdx) {
-    const overlap = Math.round(CH * COL_OVERLAP);
+    const overlap = Math.round(CH * effectiveOverlap);
     return TABLEAU_TOP + cardIdx * overlap;
   }
 

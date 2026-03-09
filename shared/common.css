@@ -2,6 +2,8 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body { overflow-x: hidden; }
+
 :root {
   --bg:           #f2f4f6;   /* light page background */
   --surface:      #ffffff;   /* white panels / cards */
@@ -216,8 +218,48 @@ canvas {
 
 .site-footer a:hover { color: var(--accent-light); }
 
+/* ── Mobile ad banner (320×50) — hidden on desktop ── */
+.ad-mobile {
+  display: none;
+}
+
 /* ── Responsive ── */
 @media (max-width: 780px) {
   .ad-leaderboard { display: none; }
   .ad-rectangle   { display: none; }
+}
+
+@media (max-width: 680px) {
+  /* Shrink header on small screens */
+  .site-header {
+    padding: 12px 14px;
+  }
+  .site-logo { font-size: 1.2rem; }
+  .site-nav a { margin-left: 14px; font-size: 0.9rem; }
+
+  /* Compact buttons — still tall enough to tap comfortably */
+  .btn {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  /* Tighter controls bar */
+  .game-controls {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  /* Show mobile banner ads */
+  .ad-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    width: 100%;
+    height: 50px;  /* standard 320×50 mobile banner */
+  }
 }
