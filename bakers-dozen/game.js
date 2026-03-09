@@ -246,16 +246,17 @@
   // ── Pointer / drag events ────────────────────────────────────────────────────
   canvas.addEventListener('pointerdown', function (e) {
     if (won || paused) return;
-    e.preventDefault();
     const { x, y } = canvasPos(e);
 
     const hit = hitTestColumn(x, y);
-    if (!hit || hit.cardIndex === -1) return;  // empty column or miss
+    if (!hit || hit.cardIndex === -1) return;  // empty column or miss — allow page scroll
 
     const col  = tableau[hit.colIndex];
     const card = topCard(col);
     if (!card) return;
 
+    // Only lock scrolling once we know a card drag is actually starting
+    e.preventDefault();
     const cardX   = COL_X[hit.colIndex];
     const cardYPos = cardY(hit.colIndex, col.length - 1);
 

@@ -98,7 +98,7 @@ body {
 canvas {
   display: block;
   cursor: default;
-  touch-action: none;
+  /* touch-action handled in JS: only blocked once a card drag actually starts */
 }
 
 /* ── Game controls bar ── */
