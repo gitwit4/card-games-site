@@ -123,6 +123,18 @@
     border-radius: 0;
   }
 
+  /* Stack game-main children and move controls to the top so New Game
+     is always reachable without scrolling past the canvas */
+  .game-main {
+    display: flex;
+    flex-direction: column;
+  }
+  .game-controls {
+    order: -1;
+    margin-top: 0;
+    padding: 8px;
+  }
+
   /* Info box shown below game on mobile instead of sidebar */
   .info-box-mobile {
     display: block;

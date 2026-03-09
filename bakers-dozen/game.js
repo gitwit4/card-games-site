@@ -50,6 +50,7 @@
 
     MARGIN_X = Math.round(W * (isMobile ? 0.006 : 0.012));
     CW       = Math.floor((W - MARGIN_X * (COLS_PER_ROW + 1)) / COLS_PER_ROW);
+    if (isMobile) CW = Math.floor(CW * 0.90);  // slightly smaller cards on mobile
     CH       = Math.round(CW * (3.5 / 2.5));
     MARGIN_Y = Math.round(CH * 0.12);
 
@@ -79,8 +80,12 @@
     TABLEAU_TOP        = firstRowTop;  // backwards-compat alias for row 0
     ROW_Y = Array.from({ length: NUM_ROWS }, (_, r) => firstRowTop + r * rowSlotH);
 
-    canvas.width  = W;
-    canvas.height = Math.max(ROW_Y[NUM_ROWS - 1] + rowSlotH, CH * 7);
+    // Scale canvas to device pixels for sharp rendering on HiDPI/retina screens.
+    // All layout variables stay in CSS pixels; render() applies the dpr transform.
+    const dpr     = window.devicePixelRatio || 1;
+    const logicalH = Math.max(ROW_Y[NUM_ROWS - 1] + rowSlotH, CH * 7);
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(logicalH * dpr);
 
     render();
   }
@@ -200,12 +205,12 @@
 
   // ── Hit testing ──────────────────────────────────────────────────────────────
   function canvasPos(e) {
-    const rect   = canvas.getBoundingClientRect();
-    const scaleX = canvas.width  / rect.width;
-    const scaleY = canvas.height / rect.height;
+    // Return CSS-pixel coordinates. All layout vars are in CSS pixels.
+    // The DPR scaling is handled by ctx.setTransform() in render(), not here.
+    const rect = canvas.getBoundingClientRect();
     return {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top)  * scaleY,
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
     };
   }
 
@@ -348,8 +353,11 @@
   }
 
   function render() {
-    const W = canvas.width;
-    const H = canvas.height;
+    // Work in CSS pixels — setTransform scales all drawing to device pixels.
+    const dpr = window.devicePixelRatio || 1;
+    const W   = canvas.width  / dpr;
+    const H   = canvas.height / dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     ctx.fillStyle = '#1b5e20';
     ctx.fillRect(0, 0, W, H);
