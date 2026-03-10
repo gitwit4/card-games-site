@@ -87,6 +87,9 @@
 #btnHints       { background: #8b6dd9; }
 #btnHints:hover { background: #9b7de9; }
 
+#btnRules       { background: #3aacb5; }
+#btnRules:hover { background: #4abcc5; }
+
 /* Toggle: Hints off = dimmed violet */
 .btn-toggle-off { background: #52407f !important; color: #b0a0d0 !important; }
 
@@ -161,8 +164,13 @@
     border-radius: 0;
   }
 
-  /* Hide mobile ads + inline rules (rules now in modal) */
-  .ad-mobile      { display: none; }
+  /* Top ad banner sits between controls and canvas */
+  .ad-mobile           { display: none; }   /* hide both by default */
+  .game-main > .ad-mobile:first-child {     /* then show only the first one */
+    display: flex;
+    flex-shrink: 0;
+    /* order: 0 keeps it after controls (order:-1) and before canvas-wrapper (order:0 in DOM) */
+  }
   .info-box-mobile { display: none !important; }
 }
 
