@@ -107,37 +107,115 @@
 }
 
 @media (max-width: 680px) {
-  /* Canvas fills the full screen width — zero chrome around it */
-  .game-layout {
-    padding: 0;
-    gap: 0;
+  /* ── Viewport-lock: game fills the screen, nothing to scroll ── */
+  /* This lets us restore touch-action:none for lag-free card drag.    */
+  html, body {
+    height: 100%;
+    overflow: hidden;
   }
 
-  /* Hide sidebar entirely on mobile — no rectangle ad, no info box */
-  .game-sidebar {
-    display: none;
-  }
-
-  /* Remove border-radius on canvas so it goes edge-to-edge */
-  .canvas-wrapper {
-    border-radius: 0;
-  }
-
-  /* Stack game-main children and move controls to the top so New Game
-     is always reachable without scrolling past the canvas */
-  .game-main {
+  /* Body becomes a flex column: header + game area */
+  body {
     display: flex;
     flex-direction: column;
   }
-  .game-controls {
-    order: -1;
-    margin-top: 0;
-    padding: 8px;
+
+  /* Hide desktop/SEO content that sits below the game */
+  .ad-leaderboard  { display: none !important; }
+  .content-section { display: none; }
+  .site-footer     { display: none; }
+
+  /* Game layout fills remaining body height */
+  .game-layout {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
   }
 
-  /* Info box shown below game on mobile instead of sidebar */
-  .info-box-mobile {
-    display: block;
-    margin: 12px 8px;
+  .game-sidebar { display: none; }
+
+  /* game-main stacks vertically and fills game-layout */
+  .game-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
+
+  /* Controls pinned above canvas */
+  .game-controls {
+    order: -1;
+    flex-shrink: 0;
+    margin-top: 0;
+    padding: 6px 8px;
+  }
+
+  /* Canvas wrapper fills all remaining space */
+  .canvas-wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  /* Hide mobile ads + inline rules (rules now in modal) */
+  .ad-mobile      { display: none; }
+  .info-box-mobile { display: none !important; }
+}
+
+/* ── Rules modal ─────────────────────────────────────────────────────────── */
+.rules-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.rules-modal.open { display: flex; }
+
+.rules-modal-box {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 20px 20px 16px;
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.rules-modal-box h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.rules-modal-box ul {
+  padding-left: 18px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.rules-modal-box li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.rules-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  line-height: 1;
 }

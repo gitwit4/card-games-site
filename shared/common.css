@@ -102,10 +102,9 @@ canvas {
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  /* pan-y: lets users scroll the page vertically through the canvas.
-     Once a card drag starts and setPointerCapture fires, touch-action is
-     overridden for that gesture so vertical card drags still work fine. */
-  touch-action: pan-y;
+  /* none: game is viewport-locked on mobile so nothing needs scrolling;
+     gives instant, lag-free drag response. */
+  touch-action: none;
 }
 
 /* ── Game controls bar ── */

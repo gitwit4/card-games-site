@@ -41,6 +41,7 @@
         <button class="btn btn-secondary" id="btnUndo">Undo</button>
         <button class="btn btn-secondary" id="btnPause">Pause</button>
         <button class="btn btn-secondary btn-toggle-on" id="btnHints">Hints: On</button>
+        <button class="btn btn-secondary" id="btnRules">Rules</button>
         <span class="stat-label">Moves:</span>
         <span class="stat-value" id="moveCount">0</span>
         <span class="stat-label" style="margin-left:12px">Time:</span>
@@ -155,13 +156,33 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
 
-  <!-- Show quick rules below game on mobile -->
+  <!-- Rules modal -->
+  <div class="rules-modal" id="rulesModal">
+    <div class="rules-modal-box">
+      <button class="rules-modal-close" id="btnRulesClose">✕</button>
+      <h3>Quick Rules</h3>
+      <ul>
+        <li>Move all 52 cards to the 4 piles (top right), Ace up to King by suit</li>
+        <li>Only the <strong>top card</strong> of each column can be moved</li>
+        <li>Place a card on any column whose top card is <strong>one rank higher</strong> — suit doesn't matter</li>
+        <li>Kings start at the bottom of their column so they're out of the way</li>
+        <li>Empty columns accept any card</li>
+        <li>Double-tap the top card to send it to a foundation automatically</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Rules modal wiring -->
   <script>
     (function () {
-      var box = document.querySelector('.info-box-mobile');
-      function checkMobile() { box.style.display = window.innerWidth <= 680 ? 'block' : 'none'; }
-      checkMobile();
-      window.addEventListener('resize', checkMobile);
+      var modal  = document.getElementById('rulesModal');
+      var btnOpen  = document.getElementById('btnRules');
+      var btnClose = document.getElementById('btnRulesClose');
+      btnOpen.addEventListener('click',  function () { modal.classList.add('open'); });
+      btnClose.addEventListener('click', function () { modal.classList.remove('open'); });
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.classList.remove('open');
+      });
     }());
   </script>
 

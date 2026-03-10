@@ -50,7 +50,13 @@
 
     MARGIN_X = Math.round(W * (isMobile ? 0.006 : 0.012));
     CW       = Math.floor((W - MARGIN_X * (COLS_PER_ROW + 1)) / COLS_PER_ROW);
-    if (isMobile) CW = Math.floor(CW * 0.90);  // slightly smaller cards on mobile
+    if (isMobile) {
+      CW = Math.floor(CW * 0.90);  // slightly smaller cards on mobile
+      // Also cap by available wrapper height: total 2-row canvas height ≈ 10 × CW,
+      // so CW_max = wrapperH / 10. Keeps cards fully visible without scrolling.
+      const wrapH = wrapper.clientHeight;
+      if (wrapH > 100) CW = Math.min(CW, Math.floor(wrapH / 10));
+    }
     CH       = Math.round(CW * (3.5 / 2.5));
     MARGIN_Y = Math.round(CH * 0.12);
 
