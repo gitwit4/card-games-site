@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baker's Dozen Solitaire — Free Online Card Game</title>
-  <meta name="description" content="Play Baker's Dozen Solitaire free online. All 52 cards are dealt face-up in 13 columns. Build foundations from Ace to King by suit. No download required.">
+  <title>Klondike Solitaire — Free Online Card Game</title>
+  <meta name="description" content="Play Klondike Solitaire free online. The classic solitaire card game — no download required. Build the four foundations from Ace to King and win!">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -55,11 +55,11 @@
       <div class="info-box info-box-mobile" style="display:none">
         <h3>Quick Rules</h3>
         <ul>
-          <li>Get all cards to the 4 piles in the top right (Ace up to King)</li>
-          <li>You can only move the <strong>top card</strong> of a column</li>
-          <li>Place a card on any column that has a card one higher (suit doesn't matter)</li>
-          <li>Kings start at the bottom so they're out of your way</li>
-          <li>Empty columns can hold any card</li>
+          <li>Get all cards to the 4 piles in the top right (Ace up to King by suit)</li>
+          <li>Click the stock pile (top left) to flip a new card</li>
+          <li>Drag a card onto a column — it must be one lower and the <strong>opposite color</strong></li>
+          <li>Only Kings can go on empty columns</li>
+          <li>Double-tap the top card to send it to a foundation pile</li>
         </ul>
       </div>
 
@@ -73,11 +73,11 @@
       <div class="info-box">
         <h3>Quick Rules</h3>
         <ul>
-          <li>Get all cards to the 4 piles in the top right (Ace up to King)</li>
-          <li>You can only move the <strong>top card</strong> of a column</li>
-          <li>Place a card on any column that has a card one higher (suit doesn't matter)</li>
-          <li>Kings start at the bottom so they're out of your way</li>
-          <li>Empty columns can hold any card</li>
+          <li>Get all cards to the 4 piles in the top right (Ace up to King by suit)</li>
+          <li>Click the stock pile (top left) to flip a new card</li>
+          <li>Drag a card onto a column — it must be one lower and the <strong>opposite color</strong></li>
+          <li>Only Kings can go on empty columns</li>
+          <li>Double-tap the top card to send it to a foundation pile</li>
         </ul>
       </div>
 
@@ -86,63 +86,78 @@
 
   <!-- How to Play (content for SEO & AdSense) -->
   <section class="content-section">
-    <h2>How to Play Baker's Dozen Solitaire</h2>
+    <h2>How to Play Klondike Solitaire</h2>
 
     <h3>Setup</h3>
     <p>
-      All 52 cards are dealt face-up into 13 columns of 4 cards each. Kings are
-      automatically moved to the bottom of each column at the start so they won't
-      block your other cards.
+      You start with 7 columns of cards. The first column has 1 card, the second has 2,
+      and so on up to 7. Only the top card in each column is face-up. The rest are
+      face-down. The 24 leftover cards go to the stock pile in the top left corner.
     </p>
 
     <h3>The Goal</h3>
     <p>
-      Move all 52 cards to the four piles in the top area. Each pile is built by suit,
-      starting with the Ace and going up: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K.
+      Move all 52 cards to the 4 foundation piles in the top right. Each pile is built
+      by suit, starting with the Ace and going up: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K.
     </p>
 
     <h3>Moving Cards</h3>
     <ul>
-      <li>You can only move the <strong>top card</strong> of any column.</li>
-      <li>Place a card on a column where the top card is <strong>one number higher</strong>. Suit doesn't matter.</li>
-      <li>Example: a 7 can go on top of any 8.</li>
-      <li>Send a card to a top pile when it's the right next card for that suit.</li>
-      <li>If a column is empty, you can place any card there.</li>
+      <li>Drag a face-up card onto a column where the top card is <strong>one rank higher and the opposite color</strong>.</li>
+      <li>Red cards go on black cards. Black cards go on red cards.</li>
+      <li>Example: a black 8 can go on a red 9. A red Jack can go on a black Queen.</li>
+      <li>You can move a whole stack of face-up cards at once if they are in order and alternating colors.</li>
+      <li>When you move a card and uncover a face-down card, it flips up automatically.</li>
+      <li>Only a King (or a stack starting with a King) can go on an empty column.</li>
     </ul>
+
+    <h3>The Stock Pile</h3>
+    <p>
+      Click the stock pile in the top left to flip one card to the waste pile next to it.
+      You can play the top card of the waste pile. When the stock runs out, click it again
+      to flip the whole waste pile back over and start again.
+    </p>
 
     <h3>Winning</h3>
     <p>
-      You win when all 52 cards are in the four top piles. This game gives you a fair
-      chance to win if you plan your moves carefully.
+      You win when all 52 cards are stacked on the four foundation piles. Klondike is not
+      always winnable, but with good planning you can win most games. Take your time!
     </p>
   </section>
 
   <section class="content-section">
     <h2>Tips to Win</h2>
 
-    <h3>Go for Aces and Low Cards First</h3>
+    <h3>Red on Black, Black on Red</h3>
     <p>
-      Look for Aces and 2s that are buried under other cards. Getting them out early
-      opens up the top piles and gives you more room to work.
+      Always check the color before you move a card. It must go on a card of the
+      opposite color. This is the most important rule. Getting this wrong early can
+      block your whole game.
     </p>
 
-    <h3>Be Careful With Kings</h3>
+    <h3>Flip Face-Down Cards First</h3>
     <p>
-      A King can only go on an empty column — nothing is higher than a King. Don't
-      fill up your empty columns with Kings unless you have a plan, or you'll run
-      out of places to move cards.
+      Try to uncover face-down cards as fast as you can. The more cards you can see,
+      the more moves you have to work with. Look for the shortest columns first.
     </p>
 
-    <h3>Keep Columns Empty When You Can</h3>
+    <h3>Keep Empty Columns Open</h3>
     <p>
-      An empty column is very useful. You can use it to move a card out of the way
-      while you rearrange things. Try not to fill it back up right away.
+      An empty column is very useful. You can use it to move cards around and free up
+      space. Only put a King there if you have a plan. Don't fill it up right away
+      just because you can.
     </p>
 
-    <h3>Stack Cards in Order</h3>
+    <h3>Build Foundations Evenly</h3>
     <p>
-      Try to put cards in order from high to low in a column (like 9, 8, 7, 6...).
-      This makes it easy to move them one at a time in a chain when you're ready.
+      Try to keep your four foundation piles close in rank. If one pile is way ahead
+      of the others, you may not be able to play the low cards you need.
+    </p>
+
+    <h3>Think Before You Draw</h3>
+    <p>
+      Try to make all the moves you can before clicking the stock pile. Drawing too fast
+      can bury cards you need. Look at the whole board before you draw.
     </p>
   </section>
 
@@ -163,10 +178,10 @@
       <h3>Quick Rules</h3>
       <ul>
         <li>Move all 52 cards to the 4 piles (top right), Ace up to King by suit</li>
-        <li>Only the <strong>top card</strong> of each column can be moved</li>
-        <li>Place a card on any column whose top card is <strong>one rank higher</strong> — suit doesn't matter</li>
-        <li>Kings start at the bottom of their column so they're out of the way</li>
-        <li>Empty columns accept any card</li>
+        <li>Click the stock pile (top left) to flip a card to the waste pile</li>
+        <li>Place a card on a column whose top card is <strong>one rank higher and opposite color</strong></li>
+        <li>You can drag a whole face-up stack at once</li>
+        <li>Only Kings (or King stacks) can go on empty columns</li>
         <li>Double-tap the top card to send it to a foundation automatically</li>
       </ul>
     </div>
@@ -175,7 +190,7 @@
   <!-- Rules modal wiring -->
   <script>
     (function () {
-      var modal  = document.getElementById('rulesModal');
+      var modal    = document.getElementById('rulesModal');
       var btnOpen  = document.getElementById('btnRules');
       var btnClose = document.getElementById('btnRulesClose');
       btnOpen.addEventListener('click',  function () { modal.classList.add('open'); });
