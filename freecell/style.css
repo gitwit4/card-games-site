@@ -1,0 +1,225 @@
+/* freecell/style.css */
+@import url('../shared/common.css');
+
+.game-layout {
+  display: flex;
+  gap: 16px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 16px;
+  align-items: flex-start;
+}
+
+.game-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.game-sidebar {
+  flex-shrink: 0;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.canvas-wrapper {
+  background: var(--felt);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.game-controls {
+  margin-top: 10px;
+}
+
+/* Win overlay */
+#winOverlay {
+  display: none;
+}
+
+#winOverlay.visible {
+  display: flex;
+}
+
+/* Sidebar info box */
+.info-box {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.info-box h3 {
+  color: var(--text);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+.info-box ul {
+  padding-left: 20px;
+}
+
+.info-box li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Individual button colors */
+#btnUndo        { background: #4aaa7c; }
+#btnUndo:hover  { background: #5aba8c; }
+
+#btnPause       { background: #d9844a; }
+#btnPause:hover { background: #e8945a; }
+
+#btnHints       { background: #8b6dd9; }
+#btnHints:hover { background: #9b7de9; }
+
+#btnRules       { background: #3aacb5; }
+#btnRules:hover { background: #4abcc5; }
+
+/* Toggle: Hints off = dimmed violet */
+.btn-toggle-off { background: #52407f !important; color: #b0a0d0 !important; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .game-layout {
+    flex-direction: column;
+  }
+  .game-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .info-box {
+    flex: 1;
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 680px) {
+  /* ── Viewport-lock: game fills the screen, nothing to scroll ── */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hide desktop/SEO content on mobile */
+  .ad-leaderboard  { display: none !important; }
+  .content-section { display: none; }
+  .site-footer     { display: none; }
+
+  /* Game layout fills remaining body height */
+  .game-layout {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .game-sidebar { display: none; }
+
+  .game-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Controls pinned above canvas */
+  .game-controls {
+    order: -1;
+    flex-shrink: 0;
+    margin-top: 0;
+    padding: 6px 8px;
+  }
+
+  /* Canvas wrapper fills all remaining space */
+  .canvas-wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  /* Show only the first mobile ad (between controls and canvas) */
+  .ad-mobile           { display: none; }
+  .game-main > .ad-mobile:first-child {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .info-box-mobile { display: none !important; }
+}
+
+/* ── Rules modal ─────────────────────────────────────────────────────────── */
+.rules-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.rules-modal.open { display: flex; }
+
+.rules-modal-box {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 20px 20px 16px;
+  max-width: 340px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.rules-modal-box h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.rules-modal-box ul {
+  padding-left: 18px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.rules-modal-box li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.rules-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  line-height: 1;
+}

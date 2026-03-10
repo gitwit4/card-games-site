@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeCell Solitaire — Free Online Card Game</title>
+  <meta name="description" content="Play FreeCell Solitaire free online. All cards are visible from the start. Use four free cells to plan your moves and win. No download required.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="../">♠ Classic Solitaire</a>
+    <nav class="site-nav">
+      <a href="../">All Games</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- Leaderboard ad — AdSense placement -->
+  <div class="ad-leaderboard">Advertisement (728×90)</div>
+
+  <div class="game-layout">
+
+    <main class="game-main">
+
+      <!-- Mobile banner ad — above canvas, hidden on desktop -->
+      <div class="ad-mobile">Advertisement (320×50)</div>
+
+      <div class="canvas-wrapper">
+        <canvas id="gameCanvas"></canvas>
+        <div class="win-overlay" id="winOverlay">
+          <h2>You Win! 🎉</h2>
+          <p id="winStats"></p>
+          <button class="btn btn-primary" id="winNewGame">Play Again</button>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <button class="btn btn-primary"   id="btnNew">New Game</button>
+        <button class="btn btn-secondary" id="btnUndo">Undo</button>
+        <button class="btn btn-secondary" id="btnPause">Pause</button>
+        <button class="btn btn-secondary btn-toggle-on" id="btnHints">Hints: On</button>
+        <button class="btn btn-secondary" id="btnRules">Rules</button>
+        <span class="stat-label">Moves:</span>
+        <span class="stat-value" id="moveCount">0</span>
+        <span class="stat-label" style="margin-left:12px">Time:</span>
+        <span class="stat-value" id="timer">0:00</span>
+      </div>
+
+      <!-- Mobile banner ad — below controls, hidden on desktop -->
+      <div class="ad-mobile">Advertisement (320×50)</div>
+
+      <!-- Quick rules shown below game on mobile (sidebar hidden on mobile) -->
+      <div class="info-box info-box-mobile" style="display:none">
+        <h3>Quick Rules</h3>
+        <ul>
+          <li>Get all cards to the 4 piles in the top right (Ace up to King by suit)</li>
+          <li>Move the top card to a <strong>free cell</strong> (top left) to hold it temporarily</li>
+          <li>Place a card on a column whose top card is one rank higher and the <strong>opposite color</strong></li>
+          <li>Move a whole stack at once — more empty space means bigger stacks</li>
+          <li>Double-tap the top card to send it to a foundation automatically</li>
+        </ul>
+      </div>
+
+    </main>
+
+    <aside class="game-sidebar">
+
+      <!-- Rectangle ad — Media.net placement -->
+      <div class="ad-rectangle">Advertisement (300×250)</div>
+
+      <div class="info-box">
+        <h3>Quick Rules</h3>
+        <ul>
+          <li>Get all cards to the 4 piles in the top right (Ace up to King by suit)</li>
+          <li>Move the top card to a <strong>free cell</strong> (top left) to hold it temporarily</li>
+          <li>Place a card on a column whose top card is one rank higher and the <strong>opposite color</strong></li>
+          <li>Move a whole stack at once — more empty space means bigger stacks</li>
+          <li>Double-tap the top card to send it to a foundation automatically</li>
+        </ul>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- How to Play (content for SEO & AdSense) -->
+  <section class="content-section">
+    <h2>How to Play FreeCell Solitaire</h2>
+
+    <h3>Setup</h3>
+    <p>
+      All 52 cards are dealt face-up into 8 columns. You can see every card right
+      from the start! The 4 empty spots in the top left are the free cells. The
+      4 empty spots in the top right are the foundations where you build your
+      winning stacks.
+    </p>
+
+    <h3>The Goal</h3>
+    <p>
+      Move all 52 cards to the 4 foundation piles in the top right. Each pile
+      is built by suit, starting with the Ace and going up: A, 2, 3, 4, 5, 6,
+      7, 8, 9, 10, J, Q, K.
+    </p>
+
+    <h3>Moving Cards</h3>
+    <ul>
+      <li>Drag the <strong>top card</strong> of any column to a free cell to hold it temporarily. Each free cell holds only one card.</li>
+      <li>Drag a card from a free cell to a tableau column or foundation pile.</li>
+      <li>Place a card on a column where the top card is <strong>one rank higher and the opposite color</strong>. Red on black. Black on red.</li>
+      <li>Example: a black 7 can go on a red 8.</li>
+      <li>You can drag a whole <strong>stack</strong> of face-up cards in order. The bigger your stack, the more free cells and empty columns you need.</li>
+      <li>Any card (or stack) can go on an empty column.</li>
+    </ul>
+
+    <h3>Stacking Multiple Cards</h3>
+    <p>
+      You can move more than one card at once if you have free space. The number of
+      cards you can move at once equals: <strong>(empty free cells + 1) × 2 for each empty column</strong>.
+      For example, with 2 empty free cells and 1 empty column, you can move up to 6 cards at once.
+    </p>
+
+    <h3>Winning</h3>
+    <p>
+      You win when all 52 cards are on the four foundation piles. FreeCell is special —
+      almost every deal can be won! If you get stuck, use the Undo button and try a
+      different plan.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Tips to Win</h2>
+
+    <h3>Use Free Cells Wisely</h3>
+    <p>
+      Each free cell holds only one card. If you fill up all four, you have almost
+      no moves left. Try to keep at least one free cell open at all times.
+    </p>
+
+    <h3>Build Long Stacks</h3>
+    <p>
+      Try to build long stacks in order (like 9♥, 8♠, 7♦, 6♣...) so you can move
+      them as a group later. A long ordered stack is very powerful.
+    </p>
+
+    <h3>Empty Columns Are Powerful</h3>
+    <p>
+      An empty column lets you move up to twice as many cards at once. Think carefully
+      before filling an empty column. Keep it empty as long as possible.
+    </p>
+
+    <h3>Plan Before You Move</h3>
+    <p>
+      You can see all 52 cards from the very start. Take a moment to look at the whole
+      board before you move anything. Find where the Aces are and plan a path to free them.
+    </p>
+
+    <h3>Use Undo Freely</h3>
+    <p>
+      Unlike most card games, FreeCell is almost always solvable. If you go down a
+      wrong path, press Undo and try a different approach. There is almost always a way
+      to win if you keep trying.
+    </p>
+  </section>
+
+  <footer class="site-footer">
+    <p>
+      &copy; <span id="year"></span> Classic Solitaire. Free to play.
+      <a href="../">All Games</a> ·
+      <a href="../about.html">About</a> ·
+      <a href="../privacy.html">Privacy Policy</a>
+    </p>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+  <!-- Rules modal -->
+  <div class="rules-modal" id="rulesModal">
+    <div class="rules-modal-box">
+      <button class="rules-modal-close" id="btnRulesClose">✕</button>
+      <h3>Quick Rules</h3>
+      <ul>
+        <li>Move all 52 cards to the 4 piles (top right), Ace up to King by suit</li>
+        <li>Drag the top card of any column to a <strong>free cell</strong> (top left) to hold it</li>
+        <li>Place a card on a column whose top card is <strong>one rank higher and opposite color</strong></li>
+        <li>Drag a whole stack at once — needs empty free cells / columns to do so</li>
+        <li>Any card can go on an empty column</li>
+        <li>Double-tap the top card to send it to a foundation automatically</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Rules modal wiring -->
+  <script>
+    (function () {
+      var modal    = document.getElementById('rulesModal');
+      var btnOpen  = document.getElementById('btnRules');
+      var btnClose = document.getElementById('btnRulesClose');
+      btnOpen.addEventListener('click',  function () { modal.classList.add('open'); });
+      btnClose.addEventListener('click', function () { modal.classList.remove('open'); });
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.classList.remove('open');
+      });
+    }());
+  </script>
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Shared utilities -->
+  <script src="../shared/cards.js"></script>
+  <script src="../shared/drag-drop.js"></script>
+  <!-- Game logic -->
+  <script src="game.js"></script>
+</body>
+</html>
